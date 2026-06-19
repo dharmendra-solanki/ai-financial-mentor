@@ -85,7 +85,7 @@ const Debts = () => {
       <div className="grid gap-8 xl:grid-cols-[420px_1fr]">
 
         {/* ===== FORM ===== */}
-        <form className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+        <form onSubmit={handleSubmit} className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
           
           <div className="mb-6 flex items-center gap-4">
             <div className="grid h-12 w-12 place-items-center rounded-xl bg-red-50 text-red-600 shadow-sm">

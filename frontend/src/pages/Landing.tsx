@@ -55,26 +55,6 @@ const features = [
   },
 ];
 
-const benefits = [
-  "JWT protected finance workspace",
-  "MySQL and Prisma powered backend",
-  "Dashboard summary from real API data",
-  "Monthly reports with charts",
-  "Budget alerts and notifications",
-  "Clean frontend ready for future admin panel",
-];
-
-const statCards = [
-  {
-    value: "₹42.8k",
-    label: "Available Balance",
-    change: "+12%",
-    positive: true,
-  },
-  { value: "₹18k", label: "Goal Progress", change: "+5.2k", positive: true },
-  { value: "3", label: "Active Alerts", change: "-1", positive: false },
-];
-
 const Landing = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (

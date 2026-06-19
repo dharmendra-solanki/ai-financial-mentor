@@ -49,7 +49,6 @@ const Admin = () => {
 
   const handleDeleteUser = async (id: number) => {
     const confirmed = window.confirm("Delete this user and all related data?");
-
     if (!confirmed) return;
 
     await deleteAdminUser(id);
@@ -59,7 +58,7 @@ const Admin = () => {
   return (
     <DashboardLayout
       title="Admin Panel"
-      subtitle="Monitor users, records, and system usage."
+      subtitle="Monitor users, system activity, and platform usage."
     >
       {loading ? (
         <div className="panel rounded-lg p-8 text-center font-bold text-slate-500">
@@ -70,7 +69,9 @@ const Admin = () => {
           {error}
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
+
+          {/* ================= STATS GRID ================= */}
           <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <SummaryCard
               title="Users"
@@ -116,18 +117,21 @@ const Admin = () => {
             />
           </section>
 
-          <section className="panel rounded-lg p-5">
-            <div className="mb-5">
-              <h2 className="text-lg font-black text-slate-950">
+          {/* ================= USER TABLE ================= */}
+          <section className="panel rounded-lg p-5 sm:p-6 overflow-hidden">
+
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-black text-slate-950">
                 User Management
               </h2>
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm text-slate-500">
                 View users and their activity counts
               </p>
             </div>
 
-            <div className="table-wrap">
-              <table className="data-table">
+            {/* RESPONSIVE TABLE WRAPPER */}
+            <div className="w-full overflow-x-auto">
+              <table className="data-table min-w-[900px] sm:min-w-full">
                 <thead>
                   <tr>
                     <th>User</th>
@@ -152,8 +156,11 @@ const Admin = () => {
                         user._count.aiChats;
 
                       return (
-                        <tr key={user.id}>
-                          <td>
+                        <tr
+                          key={user.id}
+                          className="hover:bg-slate-50 transition"
+                        >
+                          <td className="whitespace-nowrap">
                             <p className="font-black text-slate-950">
                               {user.name}
                             </p>
@@ -162,7 +169,7 @@ const Admin = () => {
                             </p>
                           </td>
 
-                          <td>
+                          <td className="whitespace-nowrap">
                             <span
                               className={`badge ${
                                 user.role === "ADMIN"
@@ -174,23 +181,23 @@ const Admin = () => {
                             </span>
                           </td>
 
-                          <td className="text-slate-500">
+                          <td className="whitespace-nowrap text-slate-500">
                             {user.profile?.country || "-"}
                           </td>
 
-                          <td className="text-slate-500">
+                          <td className="whitespace-nowrap text-slate-500">
                             {user.profile?.riskLevel || "-"}
                           </td>
 
-                          <td className="font-black text-slate-800">
+                          <td className="whitespace-nowrap font-black text-slate-800">
                             {recordCount}
                           </td>
 
-                          <td className="text-slate-500">
+                          <td className="whitespace-nowrap text-slate-500">
                             {formatDate(user.createdAt)}
                           </td>
 
-                          <td>
+                          <td className="whitespace-nowrap">
                             <button
                               className="danger-btn"
                               type="button"
@@ -214,6 +221,7 @@ const Admin = () => {
               </table>
             </div>
           </section>
+
         </div>
       )}
     </DashboardLayout>

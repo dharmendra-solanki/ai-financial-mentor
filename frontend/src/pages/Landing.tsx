@@ -1,33 +1,58 @@
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  BarChart3,
   Bot,
-  CheckCircle2,
   CreditCard,
-  Gauge,
-  LockKeyhole,
   PiggyBank,
   ReceiptText,
-  ShieldCheck,
   Sparkles,
   Target,
   Wallet,
   TrendingUp,
-  Zap,
-  Shield,
   Star,
-  Users,
-  Globe,
+  Brain,
+  Menu,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 
 const features = [
-  { title: "Income Tracking", text: "Track salary, freelance, bonus, and business income.", icon: Wallet, color: "emerald" },
-  { title: "Expense Control", text: "Understand where your money goes every month.", icon: ReceiptText, color: "rose" },
-  { title: "Smart Budgets", text: "Set category limits and monitor budget usage.", icon: PiggyBank, color: "amber" },
-  { title: "AI Money Mentor", text: "Ask practical finance questions using your real data.", icon: Bot, color: "violet" },
-  { title: "Savings Goals", text: "Track goals like emergency fund, laptop, car, or travel.", icon: Target, color: "blue" },
-  { title: "Debt Monitor", text: "Manage EMI, loans, remaining amount, and due dates.", icon: CreditCard, color: "orange" },
+  {
+    title: "Income Tracking",
+    text: "Track salary, freelance, bonus, and business income.",
+    icon: Wallet,
+    color: "emerald",
+  },
+  {
+    title: "Expense Control",
+    text: "Understand where your money goes every month.",
+    icon: ReceiptText,
+    color: "rose",
+  },
+  {
+    title: "Smart Budgets",
+    text: "Set category limits and monitor budget usage.",
+    icon: PiggyBank,
+    color: "amber",
+  },
+  {
+    title: "AI Money Mentor",
+    text: "Ask practical finance questions using your real data.",
+    icon: Bot,
+    color: "violet",
+  },
+  {
+    title: "Savings Goals",
+    text: "Track goals like emergency fund, laptop, car, or travel.",
+    icon: Target,
+    color: "blue",
+  },
+  {
+    title: "Debt Monitor",
+    text: "Manage EMI, loans, remaining amount, and due dates.",
+    icon: CreditCard,
+    color: "orange",
+  },
 ];
 
 const benefits = [
@@ -40,272 +65,185 @@ const benefits = [
 ];
 
 const statCards = [
-  { value: "₹42.8k", label: "Available Balance", change: "+12%", positive: true },
+  {
+    value: "₹42.8k",
+    label: "Available Balance",
+    change: "+12%",
+    positive: true,
+  },
   { value: "₹18k", label: "Goal Progress", change: "+5.2k", positive: true },
   { value: "3", label: "Active Alerts", change: "-1", positive: false },
 ];
 
 const Landing = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl" />
-      </div>
+    <div className="min-h-screen bg-white">
+      {/* Navbar */}
 
-      {/* Navigation */}
-      <nav className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-slate-900/50 sticky top-0">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="sticky top-0 z-10 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-emerald-500 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition" />
-                <div className="relative h-11 w-11 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center shadow-lg">
-                  <PiggyBank size={22} className="text-slate-900" />
-                </div>
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                <PiggyBank size={22} className="text-white" />
               </div>
+
               <div>
-                <p className="text-lg font-bold bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
+                <p className="text-lg font-bold text-slate-900">
                   AI Financial Mentor
                 </p>
-                <p className="text-xs font-medium tracking-wider text-teal-300/70">
-                  FINANCE COCKPIT
+                <p className="text-xs tracking-wider text-indigo-500">
+                  SMART FINANCE PLATFORM
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Desktop Buttons */}
+            <div className="hidden md:flex gap-3">
               <Link
                 to="/login"
-                className="px-5 py-2.5 text-sm font-semibold text-gray-300 hover:text-white rounded-xl hover:bg-white/10 transition-all duration-200"
+                className="px-5 py-2.5 text-slate-600 font-semibold hover:text-indigo-600 transition"
               >
                 Login
               </Link>
+
               <Link
                 to="/register"
-                className="px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-teal-400 to-emerald-500 text-slate-900 rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-200 hover:scale-105"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:scale-105 transition"
               >
-                Get Started
+                Register
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-slate-100"
+            >
+              {isOpen ? (
+                <X size={24} className="text-slate-700" />
+              ) : (
+                <Menu size={24} className="text-slate-700" />
+              )}
+            </button>
           </div>
+
+          {/* Mobile Menu */}
+          {isOpen && (
+            <div className="md:hidden mt-4 flex flex-col gap-3 border-t border-slate-200 pt-4">
+              <Link
+                to="/login"
+                className="px-4 py-3 rounded-xl text-slate-600 font-medium hover:bg-slate-100"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-center"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative z-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 backdrop-blur-sm">
-                <Sparkles size={16} className="text-teal-400" />
-                <span className="text-sm font-semibold text-teal-300">AI Powered Money Clarity</span>
-              </div>
-
-              <h1 className="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
-                <span className="bg-gradient-to-r from-white via-white to-teal-300 bg-clip-text text-transparent">
-                  Build better money habits
-                </span>
-                <br />
-                <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
-                  with AI mentor
-                </span>
-              </h1>
-
-              <p className="text-lg text-gray-300 leading-relaxed max-w-lg">
-                Track income, expenses, budgets, goals, debts, and get AI guidance 
-                in one powerful personal finance dashboard.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/register"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl font-bold text-slate-900 overflow-hidden transition-all hover:shadow-xl hover:shadow-teal-500/25"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Start Free Trial
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-emerald-400 opacity-0 group-hover:opacity-100 transition" />
-                </Link>
-                <Link
-                  to="/login"
-                  className="px-8 py-4 rounded-xl font-semibold text-gray-300 border border-white/20 hover:bg-white/10 transition-all duration-200 flex items-center gap-2"
-                >
-                  View Dashboard
-                  <BarChart3 size={18} />
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                {[
-                  { label: "Active Users", value: "5K+", icon: Users },
-                  { label: "Money Saved", value: "₹2.4Cr", icon: TrendingUp },
-                  { label: "Happy Clients", value: "98%", icon: Star },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-white/5">
-                      <stat.icon size={16} className="text-teal-400" />
-                    </div>
-                    <div>
-                      <p className="text-xl font-bold text-white">{stat.value}</p>
-                      <p className="text-xs text-gray-400">{stat.label}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* Hero */}
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100">
+              <Sparkles size={16} className="text-indigo-600" />
+              <span className="text-sm font-semibold text-indigo-600">
+                AI Powered Money Insights
+              </span>
             </div>
 
-            {/* Right Card - Modern Dashboard Preview */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl blur-3xl" />
-              <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-                {/* Header Stats */}
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <p className="text-sm text-gray-400">Financial Health Score</p>
-                    <p className="text-4xl font-bold text-white">86<span className="text-xl">%</span></p>
-                  </div>
-                  <div className="px-3 py-1.5 rounded-full bg-teal-500/20 border border-teal-500/30">
-                    <span className="text-sm font-semibold text-teal-300">Excellent</span>
-                  </div>
-                </div>
+            <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+              <span className="text-slate-900">Smarter Finance,</span>
+              <br />
+              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+                Powered By AI
+              </span>
+            </h1>
 
-                {/* Progress Bars */}
-                <div className="space-y-4 mb-6">
-                  {[
-                    { label: "Monthly Income", value: 85, amount: "₹75,000", color: "emerald" },
-                    { label: "Expenses", value: 45, amount: "₹32,200", color: "rose" },
-                    { label: "Budget Usage", value: 61, amount: "61%", color: "amber" },
-                  ].map((item) => (
-                    <div key={item.label}>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-300">{item.label}</span>
-                        <span className="text-white font-semibold">{item.amount}</span>
-                      </div>
-                      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full rounded-full transition-all duration-1000 bg-${item.color}-500`}
-                          style={{ width: `${item.value}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Quick Stats Grid */}
-                <div className="grid grid-cols-3 gap-3">
-                  {statCards.map((stat) => (
-                    <div key={stat.label} className="bg-white/5 rounded-xl p-3 text-center hover:bg-white/10 transition">
-                      <p className="text-lg font-bold text-white">{stat.value}</p>
-                      <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
-                      <p className={`text-xs font-semibold mt-1 ${stat.positive ? 'text-emerald-400' : 'text-red-400'}`}>
-                        {stat.change}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Decorative Elements */}
-                <div className="absolute -top-3 -right-3 w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-full blur-2xl opacity-30" />
-                <div className="absolute -bottom-3 -left-3 w-20 h-20 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full blur-2xl opacity-30" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="relative z-10 py-24 bg-slate-800/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 mb-4">
-              <Zap size={16} className="text-teal-400" />
-              <span className="text-sm font-semibold text-teal-300">Powerful Features</span>
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Everything you need to
-              <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent"> master your money</span>
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Complete financial toolkit with AI-powered insights and real-time tracking
+            <p className="text-lg text-slate-600 max-w-lg leading-relaxed">
+              Track expenses, budgets, investments and receive AI-powered
+              financial guidance from one intelligent dashboard.
             </p>
+
+            <div className="flex gap-4">
+              <Link
+                to="/register"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:shadow-xl hover:scale-105 transition"
+              >
+                Start Free
+              </Link>
+
+              <Link
+                to="/dashboard"
+                className="px-8 py-4 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition"
+              >
+                View Dashboard
+              </Link>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              const colorMap = {
-                emerald: "from-emerald-500 to-teal-500",
-                rose: "from-rose-500 to-pink-500",
-                amber: "from-amber-500 to-orange-500",
-                violet: "from-violet-500 to-purple-500",
-                blue: "from-blue-500 to-cyan-500",
-                orange: "from-orange-500 to-red-500",
-              };
-              const gradient = colorMap[feature.color as keyof typeof colorMap] || colorMap.emerald;
-              
-              return (
-                <div
-                  key={feature.title}
-                  className="group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-white/10 p-6 hover:border-teal-500/30 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition duration-300`} />
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 shadow-lg`}>
-                    <Icon size={22} className="text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.text}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="relative z-10 py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 mb-4">
-                <Shield size={16} className="text-teal-400" />
-                <span className="text-sm font-semibold text-teal-300">Enterprise Grade</span>
+          {/* Dashboard Card */}
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl p-8">
+            <div className="flex justify-between mb-8">
+              <div>
+                <p className="text-slate-500">Financial Health Score</p>
+                <p className="text-5xl font-bold text-slate-900">
+                  86<span className="text-xl">%</span>
+                </p>
               </div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-                Built for scale,
-                <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent"> secure by design</span>
-              </h2>
-              <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Your frontend connects directly with Express, Prisma, and MySQL backend. 
-                Complete remaining modules without changing the UI.
-              </p>
-              <div className="space-y-4">
-                {benefits.map((benefit) => (
-                  <div key={benefit} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 size={14} className="text-teal-400" />
-                    </div>
-                    <span className="text-gray-300">{benefit}</span>
-                  </div>
-                ))}
+
+              <div className="h-fit px-4 py-2 rounded-full bg-emerald-100">
+                <span className="font-semibold text-emerald-600">
+                  Excellent
+                </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-6">
               {[
-                { icon: Gauge, title: "Lightning Fast", desc: "Optimized Vite frontend with instant responses", color: "emerald" },
-                { icon: LockKeyhole, title: "Bank-Level Security", desc: "JWT tokens with encrypted data transfer", color: "blue" },
-                { icon: ShieldCheck, title: "Future Ready", desc: "Easy to extend with admin panels & AI", color: "violet" },
-                { icon: Globe, title: "API First", desc: "Connect any frontend to robust backend", color: "orange" },
+                {
+                  title: "Monthly Income",
+                  value: 85,
+                  amount: "₹75,000",
+                  color: "bg-emerald-500",
+                },
+                {
+                  title: "Expenses",
+                  value: 45,
+                  amount: "₹32,200",
+                  color: "bg-rose-500",
+                },
+                {
+                  title: "Budget Usage",
+                  value: 61,
+                  amount: "61%",
+                  color: "bg-amber-500",
+                },
               ].map((item) => (
-                <div key={item.title} className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-white/10 hover:border-teal-500/30 transition">
-                  <item.icon size={32} className={`text-${item.color}-400 mb-3`} />
-                  <h3 className="font-bold text-white mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-400">{item.desc}</p>
+                <div key={item.title}>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-slate-600">{item.title}</span>
+                    <span className="font-semibold text-slate-900">
+                      {item.amount}
+                    </span>
+                  </div>
+
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className={`${item.color} h-full rounded-full`}
+                      style={{ width: `${item.value}%` }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -313,46 +251,317 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative z-10 py-24">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-3xl p-12 border border-white/10 backdrop-blur-sm">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ready to take control of your finances?
+      {/* Features */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-slate-900 mb-5">
+              Everything you need to
+              <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+                {" "}
+                master your money
+              </span>
             </h2>
-            <p className="text-gray-400 mb-8 text-lg">
-              Join thousands of users who trust AI Financial Mentor for their money management
+
+            <p className="text-slate-500 max-w-2xl mx-auto">
+              Powerful tools designed to simplify personal finance and help you
+              make better financial decisions.
             </p>
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl font-bold text-slate-900 hover:shadow-xl hover:shadow-teal-500/25 transition-all hover:scale-105"
-            >
-              Start Your Journey
-              <ArrowRight size={18} />
-            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+
+              return (
+                <div
+                  key={feature.title}
+                  className="group bg-white rounded-3xl border border-slate-200 p-8 shadow-sm hover:-translate-y-3 hover:shadow-2xl transition duration-500"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                    <Icon className="text-white" size={24} />
+                  </div>
+
+                  <h3 className="mt-6 text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition">
+                    {feature.title}
+                  </h3>
+
+                  <p className="mt-3 text-slate-600 leading-relaxed">
+                    {feature.text}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="relative overflow-hidden rounded-[40px] border border-slate-200 bg-white shadow-2xl">
+            {/* Left Gradient Side */}
+            <div className="absolute top-0 left-0 h-full w-2 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500" />
+
+            <div className="grid lg:grid-cols-2 gap-12 p-12 lg:p-16 items-center">
+              {/* Left Content */}
+              <div>
+                <span className="inline-block px-4 py-2 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-sm">
+                  Start Today 🚀
+                </span>
+
+                <h2 className="mt-6 text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                  Make Every
+                  <span className="text-indigo-600"> Financial Decision </span>
+                  Smarter With AI
+                </h2>
+
+                <p className="mt-6 text-lg text-slate-600 leading-relaxed">
+                  From budgeting and expense tracking to AI-powered insights, AI
+                  Financial Mentor helps you build better money habits and
+                  achieve your goals faster.
+                </p>
+              </div>
+
+              {/* Right Side */}
+              <div className="bg-slate-50 rounded-3xl p-10 border border-slate-200">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                      <TrendingUp className="text-emerald-600" size={22} />
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-slate-900">
+                        Track Expenses
+                      </h4>
+                      <p className="text-slate-500 text-sm">
+                        Stay in control of your spending.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center">
+                      <Brain className="text-purple-600" size={22} />
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-slate-900">
+                        AI Recommendations
+                      </h4>
+                      <p className="text-slate-500 text-sm">
+                        Get personalized financial insights.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-pink-100 flex items-center justify-center">
+                      <Target className="text-pink-600" size={22} />
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-slate-900">
+                        Reach Your Goals
+                      </h4>
+                      <p className="text-slate-500 text-sm">
+                        Build wealth with confidence.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <Link
+                  to="/register"
+                  className="mt-10 flex justify-center items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 py-4 text-white font-bold hover:scale-105 transition"
+                >
+                  Start Free
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="px-4 py-2 rounded-full bg-indigo-100 text-indigo-600 text-sm font-semibold">
+              Testimonials
+            </span>
+
+            <h2 className="mt-6 text-5xl font-bold text-slate-900">
+              Loved by Users Worldwide
+            </h2>
+
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              Thousands of people trust AI Financial Mentor to manage their
+              finances and make smarter decisions.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+              <div className="flex mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+              </div>
+
+              <p className="text-slate-600 leading-relaxed">
+                AI Financial Mentor completely transformed how I manage my
+                expenses. The AI insights are incredibly helpful.
+              </p>
+
+              <div className="mt-8 flex items-center gap-4">
+                <div className="h-14 w-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                  RS
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-slate-900">Rahul Sharma</h4>
+
+                  <p className="text-sm text-slate-500">Software Engineer</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+              <div className="flex mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+              </div>
+
+              <p className="text-slate-600 leading-relaxed">
+                Budget tracking and goal planning have become so much easier.
+                This app is exactly what I needed.
+              </p>
+
+              <div className="mt-8 flex items-center gap-4">
+                <div className="h-14 w-14 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
+                  PG
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-slate-900">Priya Gupta</h4>
+
+                  <p className="text-sm text-slate-500">Entrepreneur</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+              <div className="flex mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+              </div>
+
+              <p className="text-slate-600 leading-relaxed">
+                The AI recommendations helped me improve my savings and build
+                better financial habits.
+              </p>
+
+              <div className="mt-8 flex items-center gap-4">
+                <div className="h-14 w-14 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                  AV
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-slate-900">Aman Verma</h4>
+
+                  <p className="text-sm text-slate-500">Data Analyst</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center">
-                <PiggyBank size={18} className="text-slate-900" />
-              </div>
-              <div>
-                <p className="font-bold text-white">AI Financial Mentor</p>
-                <p className="text-xs text-gray-500">Smart money management</p>
+      <footer className="bg-slate-900 text-white mt-20">
+        <div className="max-w-7xl mx-auto px-6 py-14">
+          <div className="grid md:grid-cols-4 gap-10">
+            <div>
+              <h3 className="text-2xl font-bold text-indigo-400">
+                AI Financial Mentor
+              </h3>
+
+              <p className="mt-4 text-slate-400">
+                Smarter financial planning powered by AI.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-emerald-400 mb-4">Features</h4>
+
+              <div className="space-y-3 text-slate-400">
+                <p className="hover:text-indigo-400 cursor-pointer transition">
+                  Expense Tracking
+                </p>
+                <p className="hover:text-purple-400 cursor-pointer transition">
+                  Budget Management
+                </p>
+                <p className="hover:text-pink-400 cursor-pointer transition">
+                  AI Insights
+                </p>
               </div>
             </div>
-            <div className="flex gap-6">
-              <Link to="/login" className="text-gray-400 hover:text-teal-400 transition">Login</Link>
-              <Link to="/register" className="text-gray-400 hover:text-teal-400 transition">Register</Link>
-              <Link to="/dashboard" className="text-gray-400 hover:text-teal-400 transition">Dashboard</Link>
+
+            <div>
+              <h4 className="font-bold text-orange-400 mb-4">Company</h4>
+
+              <div className="space-y-3 text-slate-400">
+                <p className="hover:text-indigo-400 cursor-pointer transition">
+                  About
+                </p>
+                <p className="hover:text-purple-400 cursor-pointer transition">
+                  Blog
+                </p>
+                <p className="hover:text-pink-400 cursor-pointer transition">
+                  Contact
+                </p>
+              </div>
             </div>
-            <p className="text-sm text-gray-500">© 2024 AI Financial Mentor. All rights reserved.</p>
+
+            <div>
+              <h4 className="font-bold text-cyan-400 mb-4">Support</h4>
+
+              <div className="space-y-3 text-slate-400">
+                <p className="hover:text-indigo-400 cursor-pointer transition">
+                  Help Center
+                </p>
+                <p className="hover:text-purple-400 cursor-pointer transition">
+                  Privacy Policy
+                </p>
+                <p className="hover:text-pink-400 cursor-pointer transition">
+                  Terms
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 mt-10 pt-6 text-center text-slate-500">
+            © 2026 AI Financial Mentor. All rights reserved.
           </div>
         </div>
       </footer>

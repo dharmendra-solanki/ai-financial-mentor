@@ -35,71 +35,95 @@ const Dashboard = () => {
       subtitle="Your money overview, live from your backend."
     >
       {loading ? (
-        <div className="panel rounded-lg p-8 text-center font-bold text-slate-500">
+        <div className="panel rounded-2xl p-10 text-center font-bold text-slate-500 shadow-sm animate-pulse">
           Loading dashboard...
         </div>
       ) : (
-        <div className="space-y-6">
-          <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <SummaryCard
-              title="Total Income"
-              value={formatCurrency(summary?.totalIncome || 0)}
-              icon={<ArrowUpCircle size={22} />}
-              tone="teal"
-            />
-            <SummaryCard
-              title="Total Expense"
-              value={formatCurrency(summary?.totalExpense || 0)}
-              icon={<ArrowDownCircle size={22} />}
-              tone="red"
-            />
-            <SummaryCard
-              title="Balance"
-              value={formatCurrency(summary?.balance || 0)}
-              icon={<IndianRupee size={22} />}
-              tone="slate"
-            />
-            <SummaryCard
-              title="Budget Used"
-              value={`${summary?.budgetUsedPercentage || 0}%`}
-              icon={<PiggyBank size={22} />}
-              tone="amber"
-            />
+        <div className="space-y-8">
+          
+          {/* ===== SUMMARY CARDS (UI UPGRADE ONLY) ===== */}
+          <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="hover:-translate-y-1 transition duration-300">
+              <SummaryCard
+                title="Total Income"
+                value={formatCurrency(summary?.totalIncome || 0)}
+                icon={<ArrowUpCircle className="text-emerald-500" size={24} />}
+                tone="teal"
+              />
+            </div>
+
+            <div className="hover:-translate-y-1 transition duration-300">
+              <SummaryCard
+                title="Total Expense"
+                value={formatCurrency(summary?.totalExpense || 0)}
+                icon={<ArrowDownCircle className="text-rose-500" size={24} />}
+                tone="red"
+              />
+            </div>
+
+            <div className="hover:-translate-y-1 transition duration-300">
+              <SummaryCard
+                title="Balance"
+                value={formatCurrency(summary?.balance || 0)}
+                icon={<IndianRupee className="text-indigo-500" size={24} />}
+                tone="slate"
+              />
+            </div>
+
+            <div className="hover:-translate-y-1 transition duration-300">
+              <SummaryCard
+                title="Budget Used"
+                value={`${summary?.budgetUsedPercentage || 0}%`}
+                icon={<PiggyBank className="text-amber-500" size={24} />}
+                tone="amber"
+              />
+            </div>
           </section>
 
-          <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-            <div className="panel rounded-lg p-5">
-              <div className="mb-4 flex items-center justify-between">
+          {/* ===== MAIN GRID ===== */}
+          <section className="grid gap-7 xl:grid-cols-[1.2fr_0.8fr]">
+            
+            {/* ===== EXPENSES ===== */}
+            <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+              
+              {/* HEADER */}
+              <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-black text-slate-950">
+                  <h2 className="text-xl font-black text-slate-900">
                     Recent Expenses
                   </h2>
-                  <p className="text-sm font-medium text-slate-500">
+                  <p className="text-sm text-slate-500">
                     Latest spending activity
                   </p>
                 </div>
-                <span className="badge badge-red">
+
+                <span className="rounded-full bg-gradient-to-r from-red-100 to-rose-100 px-4 py-1 text-xs font-bold text-rose-600 shadow-sm">
                   {formatCurrency(summary?.currentMonthExpense || 0)} this month
                 </span>
               </div>
 
-              <div className="table-wrap">
-                <table className="data-table">
-                  <thead>
+              {/* TABLE */}
+              <div className="overflow-hidden rounded-xl border border-slate-100">
+                <table className="w-full text-left">
+                  <thead className="bg-slate-50 text-xs uppercase text-slate-500">
                     <tr>
-                      <th>Category</th>
+                      <th className="p-3">Category</th>
                       <th>Amount</th>
                       <th>Date</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {summary?.recentExpenses?.length ? (
                       summary.recentExpenses.map((expense) => (
-                        <tr key={expense.id}>
-                          <td className="font-bold text-slate-800">
+                        <tr
+                          key={expense.id}
+                          className="border-t hover:bg-rose-50 transition"
+                        >
+                          <td className="p-3 font-semibold text-slate-800">
                             {expense.category}
                           </td>
-                          <td className="font-black text-red-600">
+                          <td className="font-bold text-rose-600">
                             {formatCurrency(expense.amount)}
                           </td>
                           <td className="text-slate-500">
@@ -109,7 +133,10 @@ const Dashboard = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={3} className="text-center text-slate-500">
+                        <td
+                          colSpan={3}
+                          className="p-6 text-center text-slate-500"
+                        >
                           No expenses yet
                         </td>
                       </tr>
@@ -119,40 +146,43 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="panel rounded-lg p-5">
-              <div className="mb-4">
-                <h2 className="text-lg font-black text-slate-950">
+            {/* ===== INCOME ===== */}
+            <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+              
+              <div className="mb-5">
+                <h2 className="text-xl font-black text-slate-900">
                   Recent Income
                 </h2>
-                <p className="text-sm font-medium text-slate-500">
+                <p className="text-sm text-slate-500">
                   Latest money received
                 </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {summary?.recentIncomes?.length ? (
                   summary.recentIncomes.map((income) => (
                     <div
                       key={income.id}
-                      className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4"
+                      className="group flex items-center justify-between rounded-xl border border-slate-100 bg-white p-4 transition hover:-translate-y-1 hover:shadow-md"
                     >
                       <div>
-                        <p className="font-black text-slate-900">
+                        <p className="font-bold text-slate-900 group-hover:text-emerald-600 transition">
                           {income.source}
                         </p>
-                        <p className="text-sm font-medium text-slate-500">
+                        <p className="text-xs text-slate-500">
                           {formatDate(income.date)}
                         </p>
                       </div>
-                      <p className="font-black text-teal-700">
+
+                      <p className="font-black text-emerald-600">
                         {formatCurrency(income.amount)}
                       </p>
                     </div>
                   ))
                 ) : (
-                  <p className="rounded-lg bg-slate-50 p-5 text-center text-sm font-bold text-slate-500">
+                  <div className="rounded-xl bg-slate-50 p-6 text-center text-sm font-medium text-slate-500">
                     No income yet
-                  </p>
+                  </div>
                 )}
               </div>
             </div>

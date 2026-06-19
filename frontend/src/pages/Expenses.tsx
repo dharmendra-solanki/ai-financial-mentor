@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Plus, ReceiptText, Trash2 } from "lucide-react";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -91,25 +91,31 @@ const Expenses = () => {
       title="Expenses"
       subtitle="Track where your money goes and spot the leaks quickly."
     >
-      <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-        <form onSubmit={handleSubmit} className="panel rounded-lg p-5">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-red-50 text-red-700">
+      <div className="grid gap-8 xl:grid-cols-[420px_1fr]">
+        
+        {/* ===== FORM (UI UPGRADE) ===== */}
+        <form className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition" onSubmit={handleSubmit}>
+          
+          <div className="mb-6 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-red-50 text-red-600 shadow-sm">
               <ReceiptText size={22} />
             </div>
+
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Add Expense
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Save new spending entry
+              <p className="text-sm text-slate-500">
+                Save a new spending entry
               </p>
             </div>
           </div>
 
           <div className="space-y-4">
+
+            {/* CATEGORY */}
             <select
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
               name="category"
               value={formData.category}
               onChange={handleChange}
@@ -119,8 +125,9 @@ const Expenses = () => {
               ))}
             </select>
 
+            {/* AMOUNT */}
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
               type="number"
               name="amount"
               placeholder="Amount"
@@ -129,8 +136,9 @@ const Expenses = () => {
               required
             />
 
+            {/* DATE */}
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
               type="date"
               name="date"
               value={formData.date}
@@ -138,69 +146,93 @@ const Expenses = () => {
               required
             />
 
+            {/* NOTE */}
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
               name="note"
-              placeholder="Note optional"
+              placeholder="Note (optional)"
               value={formData.note}
               onChange={handleChange}
             />
 
-            <button className="primary-btn w-full" type="submit">
+            {/* BUTTON */}
+            <button
+              className="primary-btn w-full rounded-xl py-3 flex items-center justify-center gap-2 hover:scale-[1.02] transition"
+              type="submit"
+            >
               <Plus size={18} />
               Add Expense
             </button>
           </div>
         </form>
 
-        <section className="panel rounded-lg p-5">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        {/* ===== TABLE (UI UPGRADE) ===== */}
+        <section className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+          
+          {/* HEADER */}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Expense History
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Total: {formatCurrency(totalExpense)}
+              <p className="text-sm text-slate-500">
+                Total: <span className="font-bold text-red-600">{formatCurrency(totalExpense)}</span>
               </p>
             </div>
-            <span className="badge badge-red">{expenses.length} entries</span>
+
+            <span className="rounded-full bg-red-50 px-4 py-1 text-xs font-bold text-red-600">
+              {expenses.length} entries
+            </span>
           </div>
 
+          {/* LOADING */}
           {loading ? (
-            <p className="p-6 text-center font-bold text-slate-500">
-              Loading expenses...
-            </p>
+            <div className="space-y-3">
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+            </div>
           ) : (
-            <div className="table-wrap">
-              <table className="data-table">
-                <thead>
+            <div className="overflow-hidden rounded-xl border border-slate-100">
+
+              <table className="w-full text-left">
+
+                <thead className="bg-slate-50 text-xs uppercase text-slate-500">
                   <tr>
-                    <th>Category</th>
+                    <th className="p-3">Category</th>
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Note</th>
                     <th>Action</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {expenses.length ? (
                     expenses.map((expense) => (
-                      <tr key={expense.id}>
-                        <td className="font-bold text-slate-800">
+                      <tr
+                        key={expense.id}
+                        className="border-t hover:bg-red-50 transition"
+                      >
+                        <td className="p-3 font-semibold text-slate-800">
                           {expense.category}
                         </td>
-                        <td className="font-black text-red-600">
+
+                        <td className="font-bold text-red-600">
                           {formatCurrency(expense.amount)}
                         </td>
+
                         <td className="text-slate-500">
                           {formatDate(expense.date)}
                         </td>
+
                         <td className="text-slate-500">
                           {expense.note || "-"}
                         </td>
+
                         <td>
                           <button
-                            className="danger-btn"
+                            className="group rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100 hover:scale-110"
                             type="button"
                             onClick={() => handleDelete(expense.id)}
                           >
@@ -211,12 +243,13 @@ const Expenses = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="text-center text-slate-500">
+                      <td colSpan={5} className="p-6 text-center text-slate-500">
                         No expense entries yet
                       </td>
                     </tr>
                   )}
                 </tbody>
+
               </table>
             </div>
           )}

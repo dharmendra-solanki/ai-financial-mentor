@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Bot, Send, Sparkles } from "lucide-react";
 import DashboardLayout from "../layouts/DashboardLayout";
-import {
-  askAiMentor,
-  getAiChats,
-} from "../services/aiMentor.service";
+import { askAiMentor, getAiChats } from "../services/aiMentor.service";
 import type { AiChat } from "../services/aiMentor.service";
 import { formatDate } from "../utils/formatDate";
 
@@ -42,95 +39,118 @@ const AiMentor = () => {
   return (
     <DashboardLayout
       title="AI Mentor"
-      subtitle="Ask practical money questions based on your real financial data."
+      subtitle="Ask real money questions based on your financial data."
     >
-      <div className="grid gap-6 xl:grid-cols-[420px_1fr]">
-        <section className="panel rounded-lg p-5">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-teal-50 text-teal-700">
+      <div className="grid gap-8 xl:grid-cols-[420px_1fr]">
+
+        {/* ===== LEFT PANEL ===== */}
+        <section className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+
+          <div className="mb-6 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-r from-teal-100 to-emerald-100 text-teal-700 shadow-sm">
               <Sparkles size={22} />
             </div>
+
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Ask Mentor
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Budgeting, saving, spending, debt
+              <p className="text-sm text-slate-500">
+                Budgeting • Saving • Debt • Investing
               </p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+
             <textarea
-              className="input-field min-h-40 resize-none"
+              className="input-field min-h-40 resize-none rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
-              placeholder="How can I reduce expenses and save more this month?"
+              placeholder="Example: How can I reduce expenses and save more?"
               required
             />
 
-            <button className="primary-btn w-full" type="submit" disabled={loading}>
+            <button
+              className="primary-btn w-full rounded-xl py-3 flex items-center justify-center gap-2 hover:scale-[1.02] transition"
+              type="submit"
+              disabled={loading}
+            >
               <Send size={18} />
               {loading ? "Thinking..." : "Ask AI Mentor"}
             </button>
+
           </form>
 
-          <div className="mt-5 rounded-lg bg-slate-50 p-4 text-sm font-semibold leading-6 text-slate-600">
-            Tip: Your backend sends dashboard summary with the question, so the
-            answer can use your income, expense, balance, and budget data.
+          <div className="mt-6 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 p-4 text-sm text-slate-600">
+            💡 Tip: AI uses your income, expense, budget, and debt data to give personalized advice.
           </div>
         </section>
 
-        <section className="panel rounded-lg p-5">
-          <div className="mb-5 flex items-center gap-3">
-            <Bot className="text-teal-700" size={22} />
+        {/* ===== CHAT PANEL ===== */}
+        <section className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col">
+
+          {/* HEADER */}
+          <div className="mb-6 flex items-center gap-4">
+            <Bot className="text-teal-600" size={22} />
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Chat History
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Previous mentor answers
+              <p className="text-sm text-slate-500">
+                Your financial AI conversations
               </p>
             </div>
           </div>
 
-          <div className="max-h-[680px] space-y-4 overflow-y-auto pr-2">
+          {/* CHAT AREA */}
+          <div className="flex-1 space-y-5 overflow-y-auto pr-2 max-h-[700px]">
+
             {chats.length ? (
               chats.map((chat) => (
-                <article
-                  key={chat.id}
-                  className="rounded-lg border border-slate-200 bg-white p-4"
-                >
-                  <div className="mb-3 rounded-lg bg-slate-100 p-3">
-                    <p className="text-sm font-black text-slate-900">
-                      You asked
-                    </p>
-                    <p className="mt-1 text-sm text-slate-700">
-                      {chat.question}
-                    </p>
+                <div key={chat.id} className="space-y-3">
+
+                  {/* USER MESSAGE */}
+                  <div className="flex justify-end">
+                    <div className="max-w-[80%] rounded-2xl bg-slate-100 p-4 shadow-sm">
+                      <p className="text-xs font-bold text-slate-500 mb-1">
+                        You
+                      </p>
+                      <p className="text-sm text-slate-800">
+                        {chat.question}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="rounded-lg bg-teal-50 p-3">
-                    <p className="text-sm font-black text-teal-800">
-                      Mentor answer
-                    </p>
-                    <p className="mt-1 whitespace-pre-line text-sm leading-6 text-slate-700">
-                      {chat.answer}
-                    </p>
+                  {/* AI RESPONSE */}
+                  <div className="flex justify-start">
+                    <div className="max-w-[80%] rounded-2xl bg-gradient-to-r from-teal-50 to-emerald-50 p-4 shadow-sm border border-teal-100">
+                      <p className="text-xs font-black text-teal-700 mb-1">
+                        AI Mentor
+                      </p>
+                      <p className="text-sm leading-6 text-slate-700 whitespace-pre-line">
+                        {chat.answer}
+                      </p>
+                    </div>
                   </div>
 
-                  <p className="mt-3 text-xs font-bold text-slate-400">
+                  <p className="text-center text-[11px] text-slate-400">
                     {formatDate(chat.createdAt)}
                   </p>
-                </article>
+
+                </div>
               ))
             ) : (
-              <p className="rounded-lg bg-slate-50 p-6 text-center text-sm font-bold text-slate-500">
-                No AI chats yet
-              </p>
+              <div className="h-full flex items-center justify-center">
+                <p className="text-sm font-bold text-slate-500 bg-slate-50 px-5 py-3 rounded-xl">
+                  Start your first financial conversation 💬
+                </p>
+              </div>
             )}
+
           </div>
         </section>
+
       </div>
     </DashboardLayout>
   );

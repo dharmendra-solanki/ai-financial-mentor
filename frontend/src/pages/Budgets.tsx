@@ -89,27 +89,36 @@ const Budgets = () => {
   return (
     <DashboardLayout
       title="Budgets"
-      subtitle="Set category limits and keep spending inside the lane."
+      subtitle="Set category limits and keep spending under control."
     >
-      <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-        <form onSubmit={handleSubmit} className="panel rounded-lg p-5">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-amber-50 text-amber-700">
+      <div className="grid gap-8 xl:grid-cols-[420px_1fr]">
+        
+        {/* ===== FORM CARD (UI UPGRADE) ===== */}
+        <form
+          onSubmit={handleSubmit}
+          className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+        >
+          
+          <div className="mb-6 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-amber-50 text-amber-600 shadow-sm">
               <PiggyBank size={22} />
             </div>
+
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Add Budget
               </h2>
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm text-slate-500">
                 Create monthly category limit
               </p>
             </div>
           </div>
 
           <div className="space-y-4">
+
+            {/* CATEGORY */}
             <select
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition"
               name="category"
               value={formData.category}
               onChange={handleChange}
@@ -119,8 +128,9 @@ const Budgets = () => {
               ))}
             </select>
 
+            {/* LIMIT */}
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition"
               type="number"
               name="limitAmount"
               placeholder="Limit amount"
@@ -129,9 +139,10 @@ const Budgets = () => {
               required
             />
 
+            {/* MONTH + YEAR */}
             <div className="grid grid-cols-2 gap-3">
               <input
-                className="input-field"
+                className="input-field rounded-xl border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition"
                 type="number"
                 name="month"
                 min={1}
@@ -142,7 +153,7 @@ const Budgets = () => {
               />
 
               <input
-                className="input-field"
+                className="input-field rounded-xl border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition"
                 type="number"
                 name="year"
                 min={2000}
@@ -152,57 +163,83 @@ const Budgets = () => {
               />
             </div>
 
-            <button className="primary-btn w-full" type="submit">
+            {/* BUTTON */}
+            <button
+              className="primary-btn w-full rounded-xl py-3 flex items-center justify-center gap-2 hover:scale-[1.02] transition"
+              type="submit"
+            >
               <Plus size={18} />
               Add Budget
             </button>
           </div>
         </form>
 
-        <section className="panel rounded-lg p-5">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        {/* ===== TABLE CARD (UI UPGRADE) ===== */}
+        <section className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+          
+          {/* HEADER */}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Budget List
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Total planned: {formatCurrency(totalBudget)}
+              <p className="text-sm text-slate-500">
+                Total planned:{" "}
+                <span className="font-bold text-amber-600">
+                  {formatCurrency(totalBudget)}
+                </span>
               </p>
             </div>
-            <span className="badge badge-amber">{budgets.length} budgets</span>
+
+            <span className="rounded-full bg-amber-50 px-4 py-1 text-xs font-bold text-amber-600">
+              {budgets.length} budgets
+            </span>
           </div>
 
+          {/* LOADING */}
           {loading ? (
-            <p className="p-6 text-center font-bold text-slate-500">
-              Loading budgets...
-            </p>
+            <div className="space-y-3">
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+            </div>
           ) : (
-            <div className="table-wrap">
-              <table className="data-table">
-                <thead>
+            <div className="overflow-hidden rounded-xl border border-slate-100">
+
+              <table className="w-full text-left">
+
+                <thead className="bg-slate-50 text-xs uppercase text-slate-500">
                   <tr>
-                    <th>Category</th>
+                    <th className="p-3">Category</th>
                     <th>Limit</th>
                     <th>Month</th>
                     <th>Year</th>
                     <th>Action</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {budgets.length ? (
                     budgets.map((budget) => (
-                      <tr key={budget.id}>
-                        <td className="font-bold text-slate-800">
+                      <tr
+                        key={budget.id}
+                        className="border-t hover:bg-amber-50 transition"
+                      >
+                        <td className="p-3 font-semibold text-slate-800">
                           {budget.category}
                         </td>
-                        <td className="font-black text-amber-700">
+
+                        <td className="font-bold text-amber-600">
                           {formatCurrency(budget.limitAmount)}
                         </td>
+
                         <td className="text-slate-500">{budget.month}</td>
+
                         <td className="text-slate-500">{budget.year}</td>
+
                         <td>
                           <button
-                            className="danger-btn"
+                            className="group rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100 hover:scale-110"
                             type="button"
                             onClick={() => handleDelete(budget.id)}
                           >
@@ -213,12 +250,13 @@ const Budgets = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="text-center text-slate-500">
+                      <td colSpan={5} className="p-6 text-center text-slate-500">
                         No budgets yet
                       </td>
                     </tr>
                   )}
                 </tbody>
+
               </table>
             </div>
           )}

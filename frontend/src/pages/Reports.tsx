@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import { BarChart3, CalendarSearch } from "lucide-react";
 import {
@@ -54,17 +54,20 @@ const Reports = () => {
       title="Reports"
       subtitle="Monthly financial truth in charts and numbers."
     >
-      <div className="space-y-6">
+      <div className="space-y-8">
+
+        {/* ===== FILTER CARD ===== */}
         <form
           onSubmit={handleSubmit}
-          className="panel flex flex-wrap items-end gap-4 rounded-lg p-5"
+          className="panel flex flex-wrap items-end gap-5 rounded-2xl p-6 shadow-sm hover:shadow-md transition"
         >
+
           <div>
-            <label className="mb-2 block text-sm font-bold text-slate-700">
+            <label className="mb-2 block text-xs font-bold text-slate-500 uppercase tracking-wider">
               Month
             </label>
             <input
-              className="input-field w-36"
+              className="input-field w-36 rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
               type="number"
               min={1}
               max={12}
@@ -74,11 +77,11 @@ const Reports = () => {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-bold text-slate-700">
+            <label className="mb-2 block text-xs font-bold text-slate-500 uppercase tracking-wider">
               Year
             </label>
             <input
-              className="input-field w-40"
+              className="input-field w-40 rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
               type="number"
               min={2000}
               value={year}
@@ -86,26 +89,32 @@ const Reports = () => {
             />
           </div>
 
-          <button className="primary-btn" type="submit" disabled={loading}>
+          <button
+            className="primary-btn rounded-xl px-5 py-3 flex items-center gap-2 hover:scale-[1.02] transition"
+            type="submit"
+            disabled={loading}
+          >
             <CalendarSearch size={18} />
-            {loading ? "Loading..." : "Generate Report"}
+            {loading ? "Generating..." : "Generate Report"}
           </button>
         </form>
 
         {report && (
           <>
-            <section className="grid gap-4 sm:grid-cols-3">
-              <div className="panel rounded-lg p-5">
-                <p className="text-sm font-bold text-slate-500">
+            {/* ===== KPI CARDS ===== */}
+            <section className="grid gap-5 sm:grid-cols-3">
+
+              <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition">
+                <p className="text-xs font-bold uppercase text-slate-500">
                   Monthly Income
                 </p>
-                <p className="mt-2 text-2xl font-black text-teal-700">
+                <p className="mt-2 text-2xl font-black text-teal-600">
                   {formatCurrency(report.totalIncome)}
                 </p>
               </div>
 
-              <div className="panel rounded-lg p-5">
-                <p className="text-sm font-bold text-slate-500">
+              <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition">
+                <p className="text-xs font-bold uppercase text-slate-500">
                   Monthly Expense
                 </p>
                 <p className="mt-2 text-2xl font-black text-red-600">
@@ -113,19 +122,25 @@ const Reports = () => {
                 </p>
               </div>
 
-              <div className="panel rounded-lg p-5">
-                <p className="text-sm font-bold text-slate-500">Balance</p>
-                <p className="mt-2 text-2xl font-black text-slate-950">
+              <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition">
+                <p className="text-xs font-bold uppercase text-slate-500">
+                  Balance
+                </p>
+                <p className="mt-2 text-2xl font-black text-slate-900">
                   {formatCurrency(report.balance)}
                 </p>
               </div>
+
             </section>
 
+            {/* ===== CHARTS ===== */}
             <section className="grid gap-6 xl:grid-cols-2">
-              <div className="panel rounded-lg p-5">
-                <div className="mb-4 flex items-center gap-2">
-                  <BarChart3 size={20} className="text-teal-700" />
-                  <h2 className="text-lg font-black text-slate-950">
+
+              {/* PIE CHART */}
+              <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+                <div className="mb-5 flex items-center gap-2">
+                  <BarChart3 size={20} className="text-teal-600" />
+                  <h2 className="text-lg font-black text-slate-900">
                     Expenses by Category
                   </h2>
                 </div>
@@ -137,7 +152,7 @@ const Reports = () => {
                         data={expensePieData}
                         dataKey="value"
                         nameKey="name"
-                        outerRadius={110}
+                        outerRadius={120}
                         label
                       >
                         {expensePieData.map((entry, index) => (
@@ -147,6 +162,7 @@ const Reports = () => {
                           />
                         ))}
                       </Pie>
+
                       <Tooltip
                         formatter={(value) => formatCurrency(Number(value))}
                       />
@@ -155,8 +171,9 @@ const Reports = () => {
                 </div>
               </div>
 
-              <div className="panel rounded-lg p-5">
-                <h2 className="mb-4 text-lg font-black text-slate-950">
+              {/* BAR CHART */}
+              <div className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+                <h2 className="mb-5 text-lg font-black text-slate-900">
                   Budget Usage
                 </h2>
 
@@ -169,12 +186,21 @@ const Reports = () => {
                       <Tooltip
                         formatter={(value) => formatCurrency(Number(value))}
                       />
-                      <Bar dataKey="limitAmount" fill="#0f766e" />
-                      <Bar dataKey="usedAmount" fill="#dc2626" />
+                      <Bar
+                        dataKey="limitAmount"
+                        fill="#0f766e"
+                        radius={[6, 6, 0, 0]}
+                      />
+                      <Bar
+                        dataKey="usedAmount"
+                        fill="#dc2626"
+                        radius={[6, 6, 0, 0]}
+                      />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
               </div>
+
             </section>
           </>
         )}

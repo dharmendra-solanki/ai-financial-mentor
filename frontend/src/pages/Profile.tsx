@@ -53,7 +53,6 @@ const Profile = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
     await updateProfile({
       age: formData.age ? Number(formData.age) : undefined,
       occupation: formData.occupation,
@@ -71,20 +70,24 @@ const Profile = () => {
   return (
     <DashboardLayout
       title="Profile"
-      subtitle="Set your financial identity, income baseline, and risk comfort."
+      subtitle="Your financial identity and risk preference"
     >
       <div className="mx-auto max-w-3xl">
-        <form onSubmit={handleSubmit} className="panel rounded-lg p-6">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-slate-100 text-slate-700">
+
+        <form className="panel rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+          
+          {/* HEADER */}
+          <div className="mb-8 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 shadow-sm">
               <UserRound size={22} />
             </div>
+
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Financial Profile
               </h2>
-              <p className="text-sm font-medium text-slate-500">
-                Used by dashboard and AI mentor context
+              <p className="text-sm text-slate-500">
+                Used for dashboard + AI personalization
               </p>
             </div>
           </div>
@@ -94,20 +97,24 @@ const Profile = () => {
               Loading profile...
             </p>
           ) : (
-            <div className="space-y-5">
+            <div className="space-y-6">
+
+              {/* SUCCESS MESSAGE */}
               {message && (
-                <div className="rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-bold text-teal-700">
+                <div className="rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-bold text-teal-700 shadow-sm">
                   {message}
                 </div>
               )}
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              {/* GRID */}
+              <div className="grid gap-5 sm:grid-cols-2">
+
                 <div>
                   <label className="mb-2 block text-sm font-bold text-slate-700">
                     Age
                   </label>
                   <input
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     type="number"
                     name="age"
                     value={formData.age}
@@ -121,22 +128,20 @@ const Profile = () => {
                     Occupation
                   </label>
                   <input
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     name="occupation"
                     value={formData.occupation}
                     onChange={handleChange}
                     placeholder="Software Developer"
                   />
                 </div>
-              </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-sm font-bold text-slate-700">
                     Monthly Income
                   </label>
                   <input
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     type="number"
                     name="monthlyIncome"
                     value={formData.monthlyIncome}
@@ -150,26 +155,22 @@ const Profile = () => {
                     Currency
                   </label>
                   <input
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     name="currency"
                     value={formData.currency}
                     onChange={handleChange}
-                    placeholder="INR"
                   />
                 </div>
-              </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-sm font-bold text-slate-700">
                     Country
                   </label>
                   <input
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     name="country"
                     value={formData.country}
                     onChange={handleChange}
-                    placeholder="India"
                   />
                 </div>
 
@@ -178,7 +179,7 @@ const Profile = () => {
                     Risk Level
                   </label>
                   <select
-                    className="input-field"
+                    className="input-field rounded-xl border-slate-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition"
                     name="riskLevel"
                     value={formData.riskLevel}
                     onChange={handleChange}
@@ -188,12 +189,19 @@ const Profile = () => {
                     <option value="HIGH">HIGH</option>
                   </select>
                 </div>
+
               </div>
 
-              <button className="primary-btn" type="submit">
+              {/* SAVE BUTTON */}
+              <button
+                onClick={handleSubmit}
+                className="primary-btn w-full rounded-xl py-3 flex items-center justify-center gap-2 hover:scale-[1.02] transition"
+                type="submit"
+              >
                 <Save size={18} />
                 Save Profile
               </button>
+
             </div>
           )}
         </form>

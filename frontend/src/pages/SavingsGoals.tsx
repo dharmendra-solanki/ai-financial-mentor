@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Plus, Target, Trash2 } from "lucide-react";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -76,23 +76,32 @@ const SavingsGoals = () => {
       title="Savings Goals"
       subtitle="Turn big money plans into visible progress."
     >
-      <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-        <form onSubmit={handleSubmit} className="panel rounded-lg p-5">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-blue-50 text-blue-700">
+      <div className="grid gap-8 xl:grid-cols-[420px_1fr]">
+
+        {/* ===== FORM (UI UPGRADE) ===== */}
+        <form
+          onSubmit={handleSubmit}
+          className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+        >
+          <div className="mb-6 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-blue-50 text-blue-600 shadow-sm">
               <Target size={22} />
             </div>
+
             <div>
-              <h2 className="text-lg font-black text-slate-950">Add Goal</h2>
-              <p className="text-sm font-medium text-slate-500">
-                Emergency fund, laptop, travel, education
+              <h2 className="text-xl font-black text-slate-900">
+                Add Goal
+              </h2>
+              <p className="text-sm text-slate-500">
+                Emergency fund, travel, education, laptop
               </p>
             </div>
           </div>
 
           <div className="space-y-4">
+
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
               name="title"
               placeholder="Goal title"
               value={formData.title}
@@ -101,7 +110,7 @@ const SavingsGoals = () => {
             />
 
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
               type="number"
               name="targetAmount"
               placeholder="Target amount"
@@ -111,7 +120,7 @@ const SavingsGoals = () => {
             />
 
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
               type="number"
               name="currentAmount"
               placeholder="Current amount"
@@ -120,7 +129,7 @@ const SavingsGoals = () => {
             />
 
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
               type="date"
               name="deadline"
               value={formData.deadline}
@@ -128,39 +137,52 @@ const SavingsGoals = () => {
             />
 
             <input
-              className="input-field"
+              className="input-field rounded-xl border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition"
               name="note"
-              placeholder="Note optional"
+              placeholder="Note (optional)"
               value={formData.note}
               onChange={handleChange}
             />
 
-            <button className="primary-btn w-full" type="submit">
+            <button
+              className="primary-btn w-full rounded-xl py-3 flex items-center justify-center gap-2 hover:scale-[1.02] transition"
+              type="submit"
+            >
               <Plus size={18} />
               Add Goal
             </button>
           </div>
         </form>
 
-        <section className="panel rounded-lg p-5">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        {/* ===== GOALS LIST (UI UPGRADE) ===== */}
+        <section className="panel rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+
+          {/* HEADER */}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-lg font-black text-slate-950">
+              <h2 className="text-xl font-black text-slate-900">
                 Goal Progress
               </h2>
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm text-slate-500">
                 {goals.length} active goals
               </p>
             </div>
-            <span className="badge badge-blue">Savings tracker</span>
+
+            <span className="rounded-full bg-blue-50 px-4 py-1 text-xs font-bold text-blue-600">
+              Savings Tracker
+            </span>
           </div>
 
+          {/* LOADING */}
           {loading ? (
-            <p className="p-6 text-center font-bold text-slate-500">
-              Loading goals...
-            </p>
+            <div className="space-y-3">
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-lg bg-slate-100" />
+            </div>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-2">
+
               {goals.length ? (
                 goals.map((goal) => {
                   const progress = goal.progressPercentage || 0;
@@ -168,14 +190,16 @@ const SavingsGoals = () => {
                   return (
                     <article
                       key={goal.id}
-                      className="rounded-lg border border-slate-200 bg-white p-4"
+                      className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                     >
-                      <div className="mb-4 flex items-start justify-between gap-3">
+
+                      {/* HEADER */}
+                      <div className="mb-4 flex items-start justify-between">
                         <div>
-                          <h3 className="font-black text-slate-950">
+                          <h3 className="text-lg font-black text-slate-900 group-hover:text-blue-600 transition">
                             {goal.title}
                           </h3>
-                          <p className="mt-1 text-sm font-medium text-slate-500">
+                          <p className="text-xs text-slate-500">
                             {goal.deadline
                               ? `Deadline: ${formatDate(goal.deadline)}`
                               : "No deadline"}
@@ -183,7 +207,7 @@ const SavingsGoals = () => {
                         </div>
 
                         <button
-                          className="danger-btn"
+                          className="rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100 hover:scale-110"
                           type="button"
                           onClick={() => handleDelete(goal.id)}
                         >
@@ -191,23 +215,26 @@ const SavingsGoals = () => {
                         </button>
                       </div>
 
+                      {/* PROGRESS BAR */}
                       <div className="mb-3 h-3 overflow-hidden rounded-full bg-slate-100">
                         <div
-                          className="h-full rounded-full bg-blue-600"
+                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 shadow-sm transition-all"
                           style={{ width: `${Math.min(progress, 100)}%` }}
                         />
                       </div>
 
+                      {/* INFO */}
                       <div className="flex items-center justify-between text-sm">
-                        <span className="font-black text-blue-700">
+                        <span className="font-black text-blue-600">
                           {progress}%
                         </span>
-                        <span className="font-bold text-slate-600">
+                        <span className="font-semibold text-slate-600">
                           {formatCurrency(goal.currentAmount)} /{" "}
                           {formatCurrency(goal.targetAmount)}
                         </span>
                       </div>
 
+                      {/* NOTE */}
                       {goal.note && (
                         <p className="mt-3 text-sm text-slate-500">
                           {goal.note}
@@ -217,7 +244,7 @@ const SavingsGoals = () => {
                   );
                 })
               ) : (
-                <p className="rounded-lg bg-slate-50 p-6 text-center text-sm font-bold text-slate-500 md:col-span-2">
+                <p className="rounded-xl bg-slate-50 p-6 text-center text-sm font-bold text-slate-500 md:col-span-2">
                   No savings goals yet
                 </p>
               )}
